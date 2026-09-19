@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tehnici computerizate în aparatele electromedicale – teme de lucru și bibliografie</title>
+<style>
+  :root{--light:#F4F3EE;--dark:#14213D;--teal:#0F7B8A;--orange:#C96A1E;--ink:#1B2433;--muted:#4A5568;--line:#D5D7CF;--card:#FBFBF8}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--light);color:var(--ink);font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+  header{background:linear-gradient(135deg,var(--dark) 0%,#1E3A5F 60%,var(--teal) 100%);color:var(--light);padding:48px 16px}
+  header .in{max-width:960px;margin:0 auto}
+  header .eyebrow{font-size:14px;letter-spacing:2px;text-transform:uppercase;color:#9ED3D8;font-weight:600}
+  header h1{font-family:Georgia,"Times New Roman",serif;font-size:40px;margin:8px 0 12px;line-height:1.15}
+  header p{margin:0;color:#BFD8D5}
+  nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}
+  nav .in{max-width:960px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:15px}
+  nav a{color:var(--teal);text-decoration:none;font-weight:600}
+  main{max-width:960px;margin:0 auto;padding:24px 16px 64px}
+  h2{font-family:Georgia,"Times New Roman",serif;color:var(--dark);font-size:30px;margin:48px 0 12px;border-bottom:2px solid var(--teal);padding-bottom:6px}
+  h3{color:var(--dark);font-size:20px;margin:24px 0 8px}
+  .meta{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+  .meta span{background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:14px;color:var(--muted)}
+  .tema{background:var(--card);border:1px solid var(--line);border-left:6px solid var(--teal);border-radius:10px;padding:20px 24px;margin:18px 0}
+  .tema.o{border-left-color:var(--orange)} .tema.d{border-left-color:var(--dark)}
+  .tema h3{margin-top:0}
+  ol,ul{padding-left:24px} li{margin:4px 0}
+  table{border-collapse:collapse;width:100%;font-size:15px;margin:10px 0}
+  th{background:var(--dark);color:var(--light);text-align:left;padding:8px 10px}
+  td{padding:7px 10px;border-top:1px solid var(--line);vertical-align:top;background:#fff}
+  .note{background:#FFF6E8;border:1px solid #F0D5B0;border-radius:8px;padding:12px 16px;font-size:15px}
+  .warn{background:#FDECEC;border:1px solid #F0B8B8;border-radius:8px;padding:12px 16px;font-size:15px}
+  .biblio li{margin:6px 0}
+  .tag{font-size:12px;color:#fff;background:var(--teal);border-radius:4px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+  .tag.p{background:var(--orange)}
+  a{color:var(--teal)}
+  footer{text-align:center;color:var(--muted);font-size:14px;padding:24px 16px;border-top:1px solid var(--line)}
+  @media print{nav{display:none}header{-webkit-print-color-adjust:exact;print-color-adjust:exact}.tema{page-break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><div class="in">
+  <div class="eyebrow">Școala postliceală · Tehnician aparate electromedicale · Anul II · Modulul 16 · 60 ore (30 instruire practică)</div>
+  <h1>Tehnici computerizate în aparatele electromedicale<br>Teme de lucru și bibliografie</h1>
+  <p>Prof. Sergiu Podoreanu · Liceul Tehnologic „Grigore C. Moisil” Buzău · <a href="prezentare.html" style="color:#9ED3D8">prezentarea modulului</a></p>
+</div></header>
+<nav><div class="in">
+  <a href="#reguli">Reguli generale</a><a href="#t1">Tema 1</a><a href="#t2">Tema 2</a><a href="#t3">Tema 3</a><a href="#t4">Tema 4</a><a href="#t5">Tema 5</a><a href="#t6">Tema 6</a><a href="#evaluare">Evaluare</a><a href="#biblio">Bibliografie</a>
+</div></nav>
+<main>
+
+<h2 id="reguli">Reguli generale pentru toate temele</h2>
+<ul>
+  <li>Fiecare temă se predă ca <b>document PDF</b> (sau tipărit) și se adaugă la portofoliul modulului. Numele fișierului: <code>Tema1_NumePrenume.pdf</code>.</li>
+  <li>Calculele se scriu cu <b>formula, înlocuirea valorilor și rezultatul cu unitatea de măsură</b>. Un rezultat fără calcul nu se punctează.</li>
+  <li>Capturile de ecran se numerotează și se comentează (o frază: ce arată captura).</li>
+  <li>Sursele folosite (cărți, pagini web, manuale de service) se trec la sfârșitul lucrării.</li>
+  <li>Temele în echipă au o pagină de <b>distribuție a sarcinilor</b>: cine ce a făcut.</li>
+</ul>
+<div class="warn"><b>Regulă de siguranță absolută.</b> La laborator nu se conectează electrozi pe persoane la montaje improvizate (Arduino, plăci de achiziție, osciloscop). Se lucrează numai cu simulatoare de pacient, generatoare de semnal sau fișiere de date. Aparatura medicală certificată se folosește numai sub supravegherea profesorului.</div>
+
+<!-- TEMA 1 -->
+<div class="tema" id="t1">
+<h3>Tema 1 · Lanțul de achiziție al unui electrocardiograf computerizat</h3>
+<div class="meta"><span>individual</span><span>4 ore (2 laborator + 2 acasă)</span><span>săptămânile 2–3</span></div>
+<p><b>Obiectiv:</b> să înțelegeți și să dimensionați lanțul de la electrod la convertorul analog-numeric.</p>
+<p><b>Sarcini:</b></p>
+<ol>
+  <li>Desenați complet schema bloc a unui electrocardiograf computerizat: electrozi → amplificator de instrumentație → izolare galvanică → filtru anti-aliere → convertor analog-numeric (CAN) → microcontroler → afișaj / memorie / comunicație. Notați pe fiecare bloc rolul lui într-o frază.</li>
+  <li>Banda utilă a ECG de diagnostic este 0,05–150 Hz. Alegeți frecvența de eșantionare fs și justificați alegerea prin teorema eșantionării (fs ≥ 2·fmax). Explicați de ce în practică se alege mai mult decât dublul.</li>
+  <li>Pentru un domeniu de intrare de ±5 mV, calculați rezoluția ΔU = Umax / 2ⁿ pentru convertoare de 12, 16 și 24 biți. Comparați rezultatul cu amplitudinea undei P (≈ 100 μV) și spuneți care convertor este suficient.</li>
+  <li>Calculați debitul de date (biți/s) pentru un canal și pentru 12 derivații, cu fs și n alese de voi. Câți MB ocupă o înregistrare de 10 minute?</li>
+  <li><b>Practic (laborator):</b> conectați simulatorul de pacient (sau generatorul cu formă de undă ECG) la un electrocardiograf / monitor. Setați 60, 80 și 120 bătăi/min și notați într-un tabel ce afișează aparatul. Introduceți zgomot de 50 Hz (dacă simulatorul permite) și observați efectul filtrului de rejecție activat/dezactivat.</li>
+</ol>
+<p><b>Livrabil:</b> fișă tehnică de 2 pagini: schema bloc, calculele de la punctele 2–4, tabelul de măsurători, concluzii.</p>
+<table><tr><th>Criteriu</th><th>Punctaj</th></tr>
+<tr><td>Schema bloc completă, cu rolul fiecărui bloc</td><td>30</td></tr>
+<tr><td>Calcule corecte (fs, ΔU, debit) cu justificări</td><td>40</td></tr>
+<tr><td>Tabelul de măsurători și interpretarea</td><td>30</td></tr></table>
+</div>
+
+<!-- TEMA 2 -->
+<div class="tema o" id="t2">
+<h3>Tema 2 · Prelucrarea numerică a unui semnal ECG real</h3>
+<div class="meta"><span>echipe de 2</span><span>6 ore (4 laborator + 2 acasă)</span><span>săptămânile 4–6</span></div>
+<p><b>Obiectiv:</b> să aplicați pe date reale operațiile pe care le face software-ul unui monitor: filtrare, detecție QRS, calcul de frecvență cardiacă.</p>
+<p><b>Date:</b> baza <i>MIT-BIH Arrhythmia Database</i> de pe PhysioNet (physionet.org), înregistrarea 100 (frecvență de eșantionare 360 Hz). Se descarcă semnalul în format text/CSV (PhysioNet oferă export) sau se folosește biblioteca <code>wfdb</code> în Python.</p>
+<p><b>Sarcini:</b></p>
+<ol>
+  <li>Afișați grafic primele 10 secunde de semnal (axa timpului în secunde, nu în eșantioane).</li>
+  <li>Aplicați un filtru trece-bandă 0,5–40 Hz (în Python: <code>scipy.signal.butter</code> + <code>filtfilt</code>; în Excel: medie mobilă pentru deriva liniei izoelectrice, ca aproximație). Afișați semnalul filtrat sub cel brut.</li>
+  <li>Detectați vârfurile R: prag de amplitudine + distanță minimă între vârfuri de 0,3 s (în Python: <code>scipy.signal.find_peaks</code>). Marcați vârfurile pe grafic.</li>
+  <li>Calculați intervalele R–R, frecvența cardiacă instantanee (60/RR) și frecvența medie pe 60 s. Afișați frecvența în timp.</li>
+  <li>Comparați numărul de bătăi detectate de voi cu adnotările din baza de date pentru același interval. Explicați diferențele (bătăi ratate, detecții false).</li>
+  <li>Opțional: aplicați un filtru de rejecție la 50 Hz și explicați de ce în această înregistrare (SUA) zgomotul de rețea ar fi la 60 Hz.</li>
+</ol>
+<p><b>Livrabil:</b> raport cu 4 grafice (brut, filtrat, vârfuri detectate, frecvență în timp), codul sau foaia de calcul folosită, tabel de comparație cu adnotările, interpretare.</p>
+<table><tr><th>Criteriu</th><th>Punctaj</th></tr>
+<tr><td>Prelucrarea funcționează (filtrare + detecție corectă)</td><td>50</td></tr>
+<tr><td>Comparația cu adnotările și explicarea diferențelor</td><td>30</td></tr>
+<tr><td>Raport clar, grafice etichetate corect</td><td>20</td></tr></table>
+</div>
+
+<!-- TEMA 3 -->
+<div class="tema d" id="t3">
+<h3>Tema 3 · Imaginea medicală digitală și fișierul DICOM</h3>
+<div class="meta"><span>individual</span><span>4 ore (2 laborator + 2 acasă)</span><span>săptămânile 7–8</span></div>
+<p><b>Obiectiv:</b> să deschideți, să citiți și să interpretați un fișier DICOM așa cum o face tehnicianul la verificarea unui aparat de imagistică.</p>
+<p><b>Instrumente:</b> un vizualizator DICOM gratuit – Weasis (weasis.org), MicroDicom (microdicom.com) sau 3D Slicer (slicer.org). Set de imagini demonstrative anonimizate (exemplu: seturile de test distribuite cu Orthanc sau 3D Slicer, ori imagini publice de pe pagina producătorilor).</p>
+<p><b>Sarcini:</b></p>
+<ol>
+  <li>Deschideți setul de imagini și identificați: modalitatea, numărul de serii, numărul de imagini din fiecare serie.</li>
+  <li>Din antetul DICOM (funcția „DICOM tags / metadata” a vizualizatorului) completați tabelul: Modality (0008,0060), Manufacturer (0008,0070), Manufacturer Model Name (0008,1090), Rows (0028,0010), Columns (0028,0011), Bits Allocated (0028,0100), Bits Stored (0028,0101), Pixel Spacing (0028,0030), Slice Thickness (0018,0050), Window Center / Width (0028,1050 / 0028,1051), Transfer Syntax UID (0002,0010).</li>
+  <li>Calculați volumul unei imagini (Rows × Columns × Bits Allocated / 8) și al întregii serii. Comparați cu dimensiunea reală a fișierelor pe disc și explicați diferența (antet, compresie).</li>
+  <li>Pentru o secțiune CT, setați manual trei ferestre: plămân (nivel −600 / lățime 1500 HU), țesut moale (40 / 400 HU), os (400 / 1800 HU). Faceți câte o captură și explicați ce structuri devin vizibile.</li>
+  <li>Explicați într-un paragraf de ce datele pacientului din antet fac ca fișierul DICOM să fie date cu caracter personal de categorie specială (GDPR art. 9) și ce înseamnă „anonimizare”.</li>
+</ol>
+<p><b>Livrabil:</b> fișă de lucru cu tabelul etichetelor DICOM, calculele de volum, 3 capturi comentate, paragraful despre protecția datelor.</p>
+<table><tr><th>Criteriu</th><th>Punctaj</th></tr>
+<tr><td>Tabelul etichetelor complet și corect</td><td>35</td></tr>
+<tr><td>Calculele de volum și explicarea diferenței</td><td>30</td></tr>
+<tr><td>Capturile cu ferestre și comentariile</td><td>25</td></tr>
+<tr><td>Paragraful despre protecția datelor</td><td>10</td></tr></table>
+</div>
+
+<!-- TEMA 4 -->
+<div class="tema d" id="t4">
+<h3>Tema 4 · Integrarea unui aparat în rețeaua spitalului (PACS)</h3>
+<div class="meta"><span>echipe de 3</span><span>8 ore instruire practică</span><span>săptămânile 9–12</span><span>nucleul instruirii practice</span></div>
+<p><b>Obiectiv:</b> să configurați și să verificați comunicația DICOM între un „aparat”, o arhivă PACS și o stație de diagnostic, apoi să întocmiți procesul-verbal de punere în funcțiune.</p>
+<p><b>Montaj de laborator (3 calculatoare în aceeași rețea, sau mașini virtuale):</b></p>
+<table>
+<tr><th>Rol</th><th>Software gratuit</th><th>Parametri de notat</th></tr>
+<tr><td>PACS (arhivă)</td><td>Orthanc (orthanc-server.com)</td><td>IP, port DICOM (implicit 4242), AE Title (implicit ORTHANC), interfața web (port 8042)</td></tr>
+<tr><td>Stație de diagnostic</td><td>Weasis sau Horos/OsiriX Lite</td><td>IP, AE Title propriu, configurarea nodului PACS</td></tr>
+<tr><td>Aparat (modalitate)</td><td>utilitarele DCMTK: <code>echoscu</code>, <code>storescu</code> (dcmtk.org) sau un al doilea Orthanc</td><td>IP, AE Title propriu</td></tr>
+</table>
+<p><b>Sarcini:</b></p>
+<ol>
+  <li>Stabiliți planul de adrese IP (ex. 192.168.10.x /24) și AE Title-urile (maximum 16 caractere, fără spații, sensibile la majuscule). Completați tabelul de configurare înainte de a atinge calculatoarele.</li>
+  <li>Configurați Orthanc (fișierul <code>orthanc.json</code>: <code>DicomAet</code>, <code>DicomPort</code>, lista <code>DicomModalities</code> cu aparatul și stația).</li>
+  <li>De pe „aparat”, executați testul de conectivitate: <code>echoscu -aet APARAT1 -aec ORTHANC 192.168.10.2 4242</code>. Capturați rezultatul.</li>
+  <li>Trimiteți setul de imagini demonstrative: <code>storescu -aet APARAT1 -aec ORTHANC 192.168.10.2 4242 *.dcm</code>. Verificați în interfața web Orthanc că au ajuns.</li>
+  <li>De pe stație, interogați arhiva (C-FIND) și preluați studiul (C-MOVE sau C-GET). Afișați imaginile.</li>
+  <li><b>Diagnoză:</b> introduceți intenționat o greșeală (AE Title scris cu literă mică, port greșit, aparatul lipsă din lista <code>DicomModalities</code>). Notați mesajul de eroare exact, din jurnalul Orthanc și din utilitar, și cum ați remediat.</li>
+  <li>Opțional: configurați serverul de timp (NTP) pe toate cele trei calculatoare și explicați de ce ora trebuie să fie identică.</li>
+</ol>
+<p><b>Livrabil:</b> proces-verbal de punere în funcțiune (model: date aparat, tabel complet de parametri de rețea și DICOM, rezultatele testelor C-ECHO / C-STORE / C-FIND cu capturi, semnăturile echipei) + jurnalul greșelii introduse și al remedierii.</p>
+<table><tr><th>Criteriu</th><th>Punctaj</th></tr>
+<tr><td>Transferul funcționează cap-coadă (aparat → PACS → stație)</td><td>50</td></tr>
+<tr><td>Procesul-verbal complet și corect</td><td>30</td></tr>
+<tr><td>Diagnosticul și remedierea greșelii introduse</td><td>20</td></tr></table>
+</div>
+
+<!-- TEMA 5 -->
+<div class="tema" id="t5">
+<h3>Tema 5 · Software-ul ca dispozitiv medical – studiu de caz</h3>
+<div class="meta"><span>echipe de 2</span><span>4 ore</span><span>săptămânile 13–14</span></div>
+<p><b>Obiectiv:</b> să aplicați cerințele legale și standardele pe un produs concret.</p>
+<p><b>Cazul:</b> un pulsoximetru de deget cu Bluetooth și o aplicație pe telefon care afișează SpO₂ și frecvența pulsului, memorează istoricul și trimite o alertă medicului când SpO₂ scade sub o limită setată.</p>
+<p><b>Sarcini:</b></p>
+<ol>
+  <li>Citiți regula 11 din anexa VIII a Regulamentului (UE) 2017/745 (versiunea în română, EUR-Lex). Stabiliți clasa de risc a aplicației (I, IIa, IIb sau III) și argumentați în 5–8 rânduri. Discutați ce se schimbă dacă aplicația doar afișează valorile, fără alerte.</li>
+  <li>Stabiliți clasa de siguranță software conform IEC 62304 (A – nicio vătămare posibilă, B – vătămare ușoară, C – vătămare gravă sau deces) și argumentați.</li>
+  <li>Întocmiți un tabel de analiză de risc simplificat, în spiritul ISO 14971, pentru 5 pericole: senzor desprins de pe deget, baterie descărcată, pierderea conexiunii Bluetooth/Internet, versiune veche a aplicației, confuzie între doi pacienți. Coloane: pericol → cauză → efect asupra pacientului → gravitate (1–3) → probabilitate (1–3) → măsură de reducere a riscului → cine o aplică (producător / tehnician / utilizator).</li>
+  <li>Enumerați 5 informații pe care le-ați cere producătorului înainte de a pune produsul în funcțiune într-un spital (declarația de conformitate CE, versiunea software validată, DICOM/HL7 dacă e cazul, MDS2, instrucțiuni de actualizare).</li>
+</ol>
+<p><b>Livrabil:</b> dosar de caz de 3 pagini + prezentare de 5 minute în fața clasei.</p>
+<table><tr><th>Criteriu</th><th>Punctaj</th></tr>
+<tr><td>Clasificarea MDR corect argumentată</td><td>30</td></tr>
+<tr><td>Clasa IEC 62304 argumentată</td><td>15</td></tr>
+<tr><td>Tabelul de analiză de risc (complet, măsuri realiste)</td><td>40</td></tr>
+<tr><td>Prezentarea orală</td><td>15</td></tr></table>
+</div>
+
+<!-- TEMA 6 -->
+<div class="tema o" id="t6">
+<h3>Tema 6 · Audit de securitate cibernetică al unui aparat electromedical</h3>
+<div class="meta"><span>echipe de 3</span><span>4 ore</span><span>săptămânile 15–16</span></div>
+<p><b>Obiectiv:</b> să evaluați un aparat real din punctul de vedere al securității informatice și al protecției datelor și să propuneți măsuri.</p>
+<p><b>Aparatul:</b> unul din laboratorul școlii, unul văzut la agentul economic (cu acordul acestuia) sau unul descris într-un manual de service public (ecograf, monitor de pacient, electrocardiograf cu rețea, aparat de radiologie digitală).</p>
+<p><b>Sarcini:</b></p>
+<ol>
+  <li>Completați chestionarul de mai jos (varianta simplificată a formularului MDS2) cu Da / Nu / Nu se știe și cu observații.</li>
+  <li>Pentru fiecare răspuns „Nu” sau „Nu se știe”, propuneți o măsură și precizați cine o aplică: tehnicianul, producătorul sau administratorul de rețea al spitalului.</li>
+  <li>Legați fiecare măsură de o cerință legală: GDPR art. 9 și art. 32 (securitatea prelucrării), NIS2 / OUG 155/2024 (managementul riscului, raportarea incidentelor) sau MDR anexa I (securitate informatică).</li>
+  <li>Scrieți procedura pe care ar urma-o tehnicianul dacă aparatul afișează un mesaj de ransomware: ce deconectează, pe cine anunță, ce nu face.</li>
+</ol>
+<table>
+<tr><th>#</th><th>Întrebare</th></tr>
+<tr><td>1</td><td>Aparatul stochează date de identificare a pacientului (nume, CNP, dată naștere)?</td></tr>
+<tr><td>2</td><td>Datele stocate sunt criptate? Dar cele transmise în rețea?</td></tr>
+<tr><td>3</td><td>Ce sistem de operare rulează și mai primește actualizări de securitate?</td></tr>
+<tr><td>4</td><td>Parolele implicite (utilizator, service) au fost schimbate?</td></tr>
+<tr><td>5</td><td>Există conturi individuale sau un cont comun pentru toată secția?</td></tr>
+<tr><td>6</td><td>Aparatul jurnalizează cine s-a conectat și ce a făcut?</td></tr>
+<tr><td>7</td><td>Se află într-un segment de rețea separat (VLAN) de rețeaua administrativă?</td></tr>
+<tr><td>8</td><td>Ce porturi de rețea sunt deschise și pentru ce servicii?</td></tr>
+<tr><td>9</td><td>Porturile USB sunt active? Se folosesc suporturi externe?</td></tr>
+<tr><td>10</td><td>Există acces la distanță al producătorului? Este pornit permanent sau la cerere?</td></tr>
+<tr><td>11</td><td>Are antivirus / protecție împotriva programelor rău-intenționate aprobată de producător?</td></tr>
+<tr><td>12</td><td>Există procedură de actualizare software și cine o aprobă?</td></tr>
+<tr><td>13</td><td>Există copie de siguranță a configurației și a datelor? Cât de des?</td></tr>
+<tr><td>14</td><td>Cum se șterg datele de pacient la scoaterea din uz / trimiterea în service?</td></tr>
+<tr><td>15</td><td>Producătorul a furnizat formularul MDS2 sau un document echivalent?</td></tr>
+</table>
+<p><b>Livrabil:</b> raport de audit (chestionar completat, tabel de măsuri cu responsabili și temei legal, procedura de incident) + prezentare de 5 minute.</p>
+<table><tr><th>Criteriu</th><th>Punctaj</th></tr>
+<tr><td>Chestionarul completat cu observații reale, nu formale</td><td>35</td></tr>
+<tr><td>Măsurile propuse: realiste, cu responsabil și temei legal</td><td>40</td></tr>
+<tr><td>Procedura de incident</td><td>15</td></tr>
+<tr><td>Prezentarea orală</td><td>10</td></tr></table>
+</div>
+
+<h2 id="evaluare">Evaluarea modulului</h2>
+<table>
+<tr><th>Componentă</th><th>Pondere</th></tr>
+<tr><td>Temele 1–6 (media punctajelor, fiecare din 100)</td><td>60 %</td></tr>
+<tr><td>Probă practică finală: configurarea și verificarea unui aparat în rețea (individual, 2 ore)</td><td>30 %</td></tr>
+<tr><td>Portofoliu (completitudine, ordine, surse citate)</td><td>10 %</td></tr>
+</table>
+<div class="note">Calendar orientativ pentru 30 de săptămâni: temele 1–6 în săptămânile 2–16; săptămânile 17–28 – instruire practică la agentul economic și aprofundare (repetarea temei 4 pe aparate reale); săptămânile 29–30 – proba practică și evaluarea portofoliului.</div>
+
+<h2 id="biblio">Bibliografie</h2>
+<p style="font-size:14px;color:var(--muted)"><span class="tag">verificat</span> = titlul a fost confirmat într-un catalog de bibliotecă, fișă de disciplină universitară, pagină de editură sau portal legislativ. <span class="tag p">parțial</span> = găsit doar ca înregistrare, fără toate datele de editare.</p>
+
+<h3>A. Lucrări în limba română</h3>
+<ol class="biblio">
+  <li>Costin, Hariton – <i>Electronică medicală</i>, Editura Cantes, Iași, 2000. <span class="tag p">parțial</span></li>
+  <li>Corciovă, Cătălina; Ciorap, Radu – <i>Instrumentație biomedicală</i>, Editura „Gr. T. Popa”, UMF Iași, 2014. <span class="tag">verificat</span></li>
+  <li>Ciorap, Radu – <i>Introducere în electronica biomedicală</i>, Editura PIM, Iași, 2007. <span class="tag">verificat</span></li>
+  <li>Zaharia, D.; Ciorap, R. – <i>Monitorizarea parametrilor vitali în afecțiunile cronice</i>, Editura „Gr. T. Popa”, Iași, 2009. <span class="tag">verificat</span></li>
+  <li>Focșa, Mircea Adrian – <i>Informatica medicală în era digitală – de la date la Inteligența Artificială</i>, Editura „Victor Babeș”, Timișoara, 2025, ISBN 978-606-786-518-9. Carte electronică gratuită: <a href="https://www.umft.ro/wp-content/uploads/2025/11/Informatica-medicala-in-era-digitala_editura-ebook_M_2025.pdf">umft.ro</a> (cap. 6 biosemnale, cap. 7 imagini medicale / DICOM / PACS, cap. 8 sisteme informatice medicale, cap. 9 telemedicină). <span class="tag">verificat</span></li>
+  <li>Vertan, Constantin; Ciuc, Mihai – <i>Tehnici fundamentale de prelucrarea și analiza imaginilor</i>, MatrixROM, București, 2007, ISBN 978-973-755-207-5. <span class="tag">verificat</span></li>
+  <li>Negoescu, Radu – <i>Instrumentația electronică biomedicală. Inițiere</i>, Editura Tehnică, București, 1985. <span class="tag">verificat</span></li>
+  <li>Negoescu, Radu – <i>Inițiere în electronica biomedicală. Bioelectricitate. Măsurări biofizice</i>, Editura Tehnică, București, 1985. <span class="tag">verificat</span></li>
+  <li>Strungaru, Rodica – <i>Electronica medicală</i>, Editura Didactică și Pedagogică, București, 1982. <span class="tag">verificat</span></li>
+  <li>Topoliceanu, F.; Lozneanu, S. – <i>Bioelectrometrie</i>, Editura Tehnică, București, 1985. <span class="tag">verificat</span></li>
+  <li>Tărâță, Mihai ș.a. – <i>Informatică medicală și Biostatistică</i>, UMF Craiova, 2020, suport de curs (PDF pe old.umfcv.ro). <span class="tag p">parțial</span></li>
+  <li>*** <i>Curriculum școlar pentru învățământ postliceal, nivelul 3 avansat. Calificarea: Tehnician aparate electromedicale</i> – plan de învățământ (anul II, modulul 16: Tehnici computerizate în aparatele electromedicale, 60 ore) și note metodologice, elaborat conform OMEdC nr. 3973/27.04.2005. <span class="tag">verificat</span></li>
+</ol>
+
+<h3>B. Standarde (adoptate de ASRO)</h3>
+<ol class="biblio" start="13">
+  <li>SR EN 60601-1 – <i>Aparate electromedicale. Partea 1: Cerințe generale de securitate de bază și performanțe esențiale</i> (+ SR EN 60601-1-2 compatibilitate electromagnetică; SR EN 60601-1-8 sisteme de alarmă).</li>
+  <li>SR EN 62304 (IEC 62304:2006 + A1:2015) – <i>Software pentru dispozitive medicale. Procese ale ciclului de viață al software-ului</i>.</li>
+  <li>SR EN ISO 14971 (ISO 14971:2019) – <i>Dispozitive medicale. Aplicarea managementului riscului la dispozitive medicale</i>.</li>
+  <li>SR EN ISO 13485:2016 – <i>Dispozitive medicale. Sisteme de management al calității. Cerințe pentru scopuri de reglementare</i>.</li>
+  <li>SR EN 62366-1 – <i>Dispozitive medicale. Partea 1: Aplicarea ingineriei aptitudinii de utilizare la dispozitivele medicale</i>.</li>
+  <li>SR EN ISO 12052 – <i>Informatică medicală. Imagistică digitală și comunicații în medicină (DICOM), inclusiv fluxul de lucru și gestionarea datelor</i>.</li>
+  <li>IEC 62353 – <i>Aparate electromedicale. Încercări periodice și încercări după reparare</i>.</li>
+</ol>
+<p style="font-size:14px;color:var(--muted)">Se recomandă verificarea ediției în vigoare a fiecărui standard pe <a href="https://magazin.asro.ro">magazin.asro.ro</a>.</p>
+
+<h3>C. Legislație</h3>
+<ol class="biblio" start="20">
+  <li>Regulamentul (UE) 2017/745 al Parlamentului European și al Consiliului privind dispozitivele medicale (MDR) – <a href="https://eur-lex.europa.eu/legal-content/RO/TXT/?uri=CELEX:32017R0745">EUR-Lex, versiunea în limba română</a>.</li>
+  <li>Ordonanța de urgență nr. 46/2021 privind stabilirea cadrului instituțional și a măsurilor pentru punerea în aplicare a Regulamentului (UE) 2017/745 – <a href="https://legislatie.just.ro/Public/DetaliiDocument/243191">legislatie.just.ro</a>.</li>
+  <li>Regulamentul (UE) 2016/679 privind protecția persoanelor fizice în ceea ce privește prelucrarea datelor cu caracter personal (GDPR) – <a href="https://eur-lex.europa.eu/legal-content/RO/TXT/?uri=CELEX:32016R0679">EUR-Lex</a>.</li>
+  <li>Directiva (UE) 2022/2555 privind măsuri pentru un nivel comun ridicat de securitate cibernetică (NIS2) – <a href="https://eur-lex.europa.eu/legal-content/RO/TXT/?uri=CELEX:32022L2555">EUR-Lex</a>.</li>
+  <li>Ordonanța de urgență nr. 155/2024 privind instituirea unui cadru pentru securitatea cibernetică a rețelelor și sistemelor informatice din spațiul cibernetic național civil – <a href="https://legislatie.just.ro/public/DetaliiDocument/293121">legislatie.just.ro</a>; pagina DNSC: <a href="https://www.dnsc.ro/pagini/legislatie-nis2">dnsc.ro</a>.</li>
+</ol>
+
+<h3>D. Lucrări și resurse în limba engleză</h3>
+<ol class="biblio" start="25">
+  <li>Webster, John G. (ed.) – <i>Medical Instrumentation: Application and Design</i>, 5th ed., Wiley, 2020.</li>
+  <li>Pianykh, Oleg S. – <i>Digital Imaging and Communications in Medicine (DICOM): A Practical Introduction and Survival Guide</i>, 2nd ed., Springer, 2012.</li>
+  <li>Bushberg, J. T.; Seibert, J. A.; Leidholdt, E. M.; Boone, J. M. – <i>The Essential Physics of Medical Imaging</i>, 4th ed., Wolters Kluwer, 2020.</li>
+  <li>NEMA – <i>DICOM Standard</i>, <a href="https://www.dicomstandard.org">dicomstandard.org</a> (text integral gratuit).</li>
+  <li>HL7 International – <i>HL7 FHIR</i>, <a href="https://hl7.org/fhir">hl7.org/fhir</a>.</li>
+  <li>Goldberger, A. L. et al. – <i>PhysioBank, PhysioToolkit, and PhysioNet</i>; MIT-BIH Arrhythmia Database, <a href="https://physionet.org/content/mitdb/">physionet.org/content/mitdb</a>.</li>
+  <li>Orthanc – server DICOM cu sursă deschisă, <a href="https://www.orthanc-server.com">orthanc-server.com</a>; Weasis – vizualizator DICOM, <a href="https://weasis.org">weasis.org</a>; DCMTK – utilitare DICOM, <a href="https://dcmtk.org">dcmtk.org</a>.</li>
+  <li>NEMA / HIMSS – <i>Manufacturer Disclosure Statement for Medical Device Security (MDS2)</i>.</li>
+</ol>
+
+</main>
+<footer>Prof. Sergiu Podoreanu · Liceul Tehnologic „Grigore C. Moisil” Buzău · Modulul 16 „Tehnici computerizate în aparatele electromedicale” · 2026</footer>
+</body>
+</html>

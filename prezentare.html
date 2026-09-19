@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tehnici computerizate în aparatele electromedicale – prezentare</title>
+<style>
+  :root{--light:#F4F3EE;--light2:#E9EAE3;--dark:#14213D;--teal:#0F7B8A;--orange:#C96A1E;--ink:#1B2433;--muted:#4A5568;--line:#D5D7CF;--card:#FBFBF8}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:#0b1020;font-family:"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--ink)}
+  #stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  .slide{width:1920px;height:1080px;transform-origin:center;position:absolute;padding:110px 120px 130px;background:var(--light);display:none;flex-direction:column;gap:34px;overflow:hidden}
+  .slide.active{display:flex}
+  .slide.dark{background:linear-gradient(135deg,var(--dark) 0%,#1E3A5F 60%,var(--teal) 100%);color:var(--light)}
+  .slide.dark2{background:linear-gradient(135deg,var(--teal) 0%,var(--dark) 70%);color:var(--light)}
+  h1{font-family:Georgia,"Times New Roman",serif;font-size:96px;line-height:1.05;margin:0;font-weight:600}
+  h2{font-family:Georgia,"Times New Roman",serif;font-size:60px;line-height:1.1;margin:0;color:var(--dark);font-weight:600}
+  h3{font-size:29px;margin:0;color:var(--dark);font-weight:600}
+  p{margin:0;font-size:28px;line-height:1.4;color:var(--muted)}
+  ul{margin:0;padding-left:34px;font-size:26px;line-height:1.45}
+  li{margin:4px 0}
+  .eyebrow{font-size:24px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:var(--teal)}
+  .dark .eyebrow{color:#9ED3D8}
+  .dark p,.dark2 p{color:#BFD8D5}
+  .row{display:flex;gap:30px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{flex:1;background:var(--card);border:1px solid var(--line);border-top:6px solid var(--teal);border-radius:12px;padding:28px;display:flex;flex-direction:column;gap:12px}
+  .card.o{border-top-color:var(--orange)} .card.d{border-top-color:var(--dark)}
+  .card ul{font-size:25px}
+  .panel{width:620px;background:var(--dark);border-radius:16px;padding:32px;color:#E8EEF5;display:flex;flex-direction:column;gap:14px}
+  .panel h3{color:#9ED3D8} .panel ul{color:#E8EEF5;font-size:24px}
+  table{border-collapse:collapse;width:100%;font-size:24px;border:1px solid var(--line)}
+  th{background:var(--dark);color:var(--light);text-align:left;padding:12px 16px;font-weight:600}
+  td{padding:11px 16px;vertical-align:top;border-top:1px solid var(--line);line-height:1.35}
+  tr:nth-child(even) td{background:var(--light2)} tr:nth-child(odd) td{background:var(--card)}
+  .footer{position:absolute;left:120px;right:120px;bottom:56px;display:flex;justify-content:space-between;font-size:22px;color:var(--muted)}
+  .dark .footer,.dark2 .footer{color:#BFD8D5}
+  /* schema bloc */
+  .diag{position:relative;height:540px}
+  .box{position:absolute;width:250px;background:var(--card);border:2px solid var(--teal);border-radius:12px;padding:16px;text-align:center}
+  .box.g{background:var(--light2);border-color:var(--dark)} .box.o{border-color:var(--orange)}
+  .box h3{font-size:25px} .box p{font-size:21px;line-height:1.3}
+  .arr{position:absolute;height:4px;background:var(--dark)}
+  .arr::after{content:"";position:absolute;right:-2px;top:-8px;border:10px solid transparent;border-left:14px solid var(--dark);border-right:0}
+  .arr.o{background:var(--orange)} .arr.o::after{border-left-color:var(--orange)}
+  .arr.v{width:4px;height:auto}
+  .arr.v::after{right:-8px;top:auto;bottom:-2px;border:10px solid transparent;border-top:14px solid var(--dark);border-bottom:0}
+  .arr.v.o::after{border-top-color:var(--orange)}
+  .arr.v.both::before{content:"";position:absolute;left:-8px;top:-2px;border:10px solid transparent;border-bottom:14px solid var(--dark);border-top:0}
+  .arr.both::before{content:"";position:absolute;left:-2px;top:-8px;border:10px solid transparent;border-right:14px solid var(--dark);border-left:0}
+  .arr.rev::after{right:auto;left:-2px;border:10px solid transparent;border-right:14px solid var(--orange);border-left:0}
+  .lbl{position:absolute;font-size:21px;color:var(--muted);text-align:center}
+  /* UI */
+  #hud{position:fixed;right:16px;bottom:12px;color:#8fa3bf;font:14px/1.4 system-ui;background:rgba(0,0,0,.35);padding:6px 10px;border-radius:8px}
+  #hud a{color:#9ED3D8}
+  @media print{
+    html,body{background:#fff;height:auto}
+    #stage{position:static;display:block}
+    .slide{display:flex!important;position:relative;transform:none!important;page-break-after:always;zoom:.5}
+    #hud{display:none}
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- 1 -->
+<section class="slide dark">
+  <p class="eyebrow">Școala postliceală · Tehnician aparate electromedicale · Anul II · Modulul 16</p>
+  <h1>Tehnici computerizate în aparatele electromedicale</h1>
+  <p style="font-size:34px;max-width:1400px">De la semnalul biologic la imaginea de pe ecran și la rețeaua spitalului: cum lucrează calculatorul în interiorul aparatului medical și ce trebuie să știe tehnicianul.</p>
+  <div class="footer"><span>Prof. Sergiu Podoreanu · Liceul Tehnologic „Grigore C. Moisil” Buzău</span><span>60 ore · din care 30 ore instruire practică</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <h2>Ce urmărim în acest modul</h2>
+  <div class="row">
+    <div class="card"><h3>Unde se află</h3><ul>
+      <li>Anul II, planul de învățământ nivel 3 avansat</li>
+      <li><b>60 ore/an</b>, din care <b>30 ore instruire practică</b></li>
+      <li>Se sprijină pe modulele „Utilizarea tehnicii de calcul” și „Calculatoare de proces”</li>
+      <li>Pregătește „Aparate electromedicale” și „Exploatarea și întreținerea”</li></ul></div>
+    <div class="card o"><h3>Ce veți ști să faceți</h3><ul>
+      <li>Explicați lanțul traductor → convertor → procesor → afișaj</li>
+      <li>Recunoașteți parametrii de achiziție (frecvență de eșantionare, rezoluție)</li>
+      <li>Deschideți și interpretați o imagine DICOM</li>
+      <li>Conectați un aparat la rețeaua spitalului (PACS, HIS)</li>
+      <li>Aplicați regulile de securitate și de protecție a datelor</li></ul></div>
+    <div class="card d"><h3>Cum evaluăm</h3><ul>
+      <li>6 teme de lucru practice, individual sau în echipe de 2–3</li>
+      <li>Portofoliu: fișe de lucru, capturi de ecran, rapoarte</li>
+      <li>Probă practică la final: configurarea și verificarea unui aparat în rețea</li></ul></div>
+  </div>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>2</span></div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <h2>Trei generații de aparate electromedicale</h2>
+  <table>
+    <tr><th style="width:20%">Generație</th><th style="width:24%">Exemplu tipic</th><th style="width:32%">Prelucrarea semnalului</th><th>Rezultatul</th></tr>
+    <tr><td><b>Analogică</b> (1950–1980)</td><td>Electrocardiograf cu înregistrare pe hârtie termică</td><td>Amplificatoare și filtre cu componente discrete; nicio memorie</td><td>Traseu pe hârtie, interpretat integral de medic</td></tr>
+    <tr><td><b>Digitală de sine stătătoare</b> (1980–2000)</td><td>Monitor de pacient cu microprocesor</td><td>Convertor analog-numeric, filtre numerice, calcul automat al frecvenței cardiace, alarme</td><td>Afișaj pe ecran, memorie de tendințe, imprimantă</td></tr>
+    <tr><td><b>Digitală în rețea</b> (2000–prezent)</td><td>Ecograf, CT, monitor conectat la stația centrală</td><td>Procesor de semnal, sistem de operare, aplicații, comunicație DICOM / HL7</td><td>Imagini și date în PACS și în dosarul electronic al pacientului</td></tr>
+  </table>
+  <p>Tehnicianul de astăzi lucrează aproape exclusiv cu generația a treia: <b>aparatul este un calculator specializat</b>, iar defectele sunt tot mai des de configurare, software sau rețea, nu de componente.</p>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>3</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <h2>Schema bloc a unui aparat electromedical computerizat</h2>
+  <div class="diag">
+    <div class="box g" style="left:0;top:60px;width:230px"><h3>Pacient</h3><p>semnal biologic: potențial, presiune, ultrasunet, radiație</p></div>
+    <div class="box" style="left:290px;top:60px"><h3>Traductor / senzor</h3><p>electrozi, manșetă, sondă, detector</p></div>
+    <div class="box" style="left:600px;top:60px"><h3>Condiționare analogică</h3><p>amplificare, filtrare, izolare galvanică</p></div>
+    <div class="box" style="left:910px;top:60px"><h3>Convertor analog-numeric</h3><p>eșantionare + cuantizare (ex. 500 Hz, 12–24 biți)</p></div>
+    <div class="box" style="left:1220px;top:60px"><h3>Unitate de prelucrare</h3><p>microcontroler / DSP / calculator industrial</p></div>
+    <div class="box o" style="left:1220px;top:340px"><h3>Afișare și alarme</h3><p>ecran, semnale acustice, imprimantă</p></div>
+    <div class="box o" style="left:910px;top:340px"><h3>Stocare locală</h3><p>memorie de tendințe, jurnal de evenimente</p></div>
+    <div class="box o" style="left:600px;top:340px"><h3>Comunicație</h3><p>Ethernet / Wi-Fi, DICOM, HL7, stație centrală</p></div>
+    <div class="box g" style="left:0;top:340px;width:230px"><h3>Alimentare și securitate</h3><p>IEC 60601-1: părți aplicate, curenți de scurgere</p></div>
+    <div class="arr" style="left:232px;top:128px;width:56px"></div>
+    <div class="arr" style="left:542px;top:128px;width:56px"></div>
+    <div class="arr" style="left:852px;top:128px;width:56px"></div>
+    <div class="arr" style="left:1162px;top:128px;width:56px"></div>
+    <div class="arr v o" style="left:1343px;top:210px;height:126px"></div>
+    <div class="arr o rev" style="left:1162px;top:408px;width:56px"></div>
+    <div class="arr o rev" style="left:852px;top:408px;width:56px"></div>
+  </div>
+  <p>Partea din stânga (analogică) este studiată la „Măsurări speciale”; partea din dreapta (numerică și de comunicație) este obiectul acestui modul.</p>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>4</span></div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <h2>Achiziția semnalelor: eșantionare și cuantizare</h2>
+  <div class="row">
+    <div style="flex:1"><ul style="font-size:27px">
+      <li><b>Eșantionarea</b> – semnalul se citește la intervale egale; frecvența de eșantionare fs trebuie să fie cel puțin dublul frecvenței maxime din semnal (teorema eșantionării): <b>fs ≥ 2·fmax</b></li>
+      <li><b>Cuantizarea</b> – fiecare eșantion se rotunjește la unul din 2ⁿ niveluri; n = numărul de biți al convertorului</li>
+      <li><b>Rezoluția</b> – cea mai mică variație care poate fi deosebită: <b>ΔU = Umax / 2ⁿ</b></li>
+      <li><b>Filtrul anti-aliere</b> – filtru trece-jos analogic pus înaintea convertorului, pentru a elimina componentele peste fs/2</li></ul></div>
+    <div class="panel"><h3>Exemplu numeric – electrocardiograf</h3><ul>
+      <li>Banda utilă ECG de diagnostic: 0,05 – 150 Hz</li>
+      <li>fs aleasă: <b>500 Hz</b> (≥ 2 × 150 Hz, cu rezervă)</li>
+      <li>Domeniu de intrare: ±5 mV = 10 mV</li>
+      <li>Convertor pe 12 biți → 4096 niveluri</li>
+      <li>ΔU = 10 mV / 4096 ≈ <b>2,4 μV</b> (sub amplitudinea undei P ≈ 100 μV)</li>
+      <li>Debit pe un canal: 500 × 12 = 6000 biți/s; 12 derivații ≈ 72 kbiți/s</li></ul></div>
+  </div>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>5</span></div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <h2>Prelucrarea numerică a semnalului în aparat</h2>
+  <div class="row">
+    <div class="card"><h3>Curățarea semnalului</h3><ul>
+      <li>Filtru numeric trece-bandă (0,5–40 Hz la monitorizare)</li>
+      <li>Filtru de rejecție a frecvenței rețelei (50 Hz)</li>
+      <li>Eliminarea derivei liniei izoelectrice (respirație, mișcarea electrozilor)</li>
+      <li>Detectarea artefactelor și a electrodului desprins</li></ul></div>
+    <div class="card o"><h3>Extragerea parametrilor</h3><ul>
+      <li>Detecția complexului QRS (ex. algoritmul Pan-Tompkins)</li>
+      <li>Intervalul R–R → frecvența cardiacă: <b>60 / RR</b></li>
+      <li>Exemplu: RR = 0,8 s → 75 bătăi/min</li>
+      <li>Saturația în oxigen din raportul absorbțiilor roșu / infraroșu</li>
+      <li>Presiunea arterială oscilometrică din anvelopa pulsațiilor manșetei</li></ul></div>
+    <div class="card d"><h3>Decizie și afișare</h3><ul>
+      <li>Compararea cu limitele de alarmă setate de utilizator</li>
+      <li>Prioritizarea alarmelor (IEC 60601-1-8: înaltă, medie, joasă)</li>
+      <li>Memorarea tendințelor pe 24–72 h</li>
+      <li>Trimiterea către stația centrală sau către dosarul electronic</li></ul></div>
+  </div>
+  <p><b>Tot acest lanț este software.</b> O actualizare greșită sau un filtru configurat necorespunzător schimbă rezultatul afișat fără ca vreo componentă să fie defectă.</p>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>6</span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <h2>Imagistica medicală: unde calculatorul este indispensabil</h2>
+  <table style="font-size:23px">
+    <tr><th style="width:22%">Modalitate</th><th style="width:28%">Principiul fizic</th><th style="width:32%">Ce face calculatorul</th><th>Volum tipic de date</th></tr>
+    <tr><td><b>Radiografie digitală</b> (CR/DR)</td><td>Atenuarea razelor X într-un detector plat</td><td>Corecție, egalizare, procesare de contrast, trimitere DICOM</td><td>2–10 MB / imagine</td></tr>
+    <tr><td><b>Tomografie computerizată</b> (CT)</td><td>Proiecții de raze X sub sute de unghiuri</td><td>Reconstrucție tomografică (retroproiecție filtrată, iterativă) → secțiuni</td><td>100 – 1000 MB / examinare</td></tr>
+    <tr><td><b>Rezonanță magnetică</b> (RMN)</td><td>Semnale de radiofrecvență din nuclee de hidrogen în câmp magnetic</td><td>Transformata Fourier a spațiului k → imagine; secvențe programate</td><td>100 – 500 MB / examinare</td></tr>
+    <tr><td><b>Ecografie</b></td><td>Ecouri ale ultrasunetelor</td><td>Formarea fasciculului, conversia de scanare, Doppler color, 3D/4D</td><td>Imagini + secvențe video, zeci de MB</td></tr>
+    <tr><td><b>Medicină nucleară</b> (SPECT / PET)</td><td>Radiație emisă de un trasor injectat</td><td>Reconstrucție tomografică, corecție de atenuare, fuziune cu CT</td><td>50 – 500 MB / examinare</td></tr>
+  </table>
+  <p>Fără calculator nu există CT, RMN sau PET: imaginea nu este „fotografiată”, ci <b>calculată</b> din mii de măsurători.</p>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>7</span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <h2>Imaginea medicală digitală: pixel, adâncime de biți, fereastră</h2>
+  <div class="row">
+    <div style="flex:1"><ul style="font-size:26px">
+      <li><b>Matricea</b> – imaginea este un tabel de pixeli (2D) sau voxeli (3D): 512 × 512 la CT, 256 × 256 la RMN, 2000 × 2500 la radiografia digitală</li>
+      <li><b>Adâncimea de biți</b> – câte niveluri de gri poate lua un pixel: 12 biți = 4096 niveluri; 16 biți = 65 536 niveluri</li>
+      <li><b>Unități Hounsfield (CT)</b> – scară de atenuare: aer −1000, apă 0, os +400…+1000</li>
+      <li><b>Fereastră / nivel</b> – ecranul afișează numai 256 nuanțe; alegem intervalul de valori afișat (fereastră de plămân, de os, de țesut moale)</li>
+      <li><b>Compresie</b> – fără pierderi (JPEG-Lossless, JPEG 2000) pentru diagnostic; cu pierderi doar acolo unde este permis</li></ul></div>
+    <div class="panel" style="width:600px"><h3>Exemplu numeric – examinare CT</h3><ul>
+      <li>O secțiune: 512 × 512 pixeli × 16 biți</li>
+      <li>= 262 144 pixeli × 2 octeți = 524 288 octeți ≈ <b>512 KB</b></li>
+      <li>Examinare torace: 600 secțiuni → ≈ <b>300 MB</b></li>
+      <li>Un CT face 40 de examinări pe zi → ≈ 12 GB/zi</li>
+      <li>Într-un an: ≈ 4,4 TB de stocat și de arhivat legal</li></ul></div>
+  </div>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>8</span></div>
+</section>
+
+<!-- 9 -->
+<section class="slide">
+  <h2>Standardul DICOM: limba comună a aparatelor de imagistică</h2>
+  <div class="row">
+    <div class="card"><h3>Ce este</h3><ul>
+      <li><i>Digital Imaging and Communications in Medicine</i> – standard internațional (NEMA / ISO 12052)</li>
+      <li>Definește <b>formatul fișierului</b> ȘI <b>protocolul de rețea</b></li>
+      <li>Orice CT, RMN, ecograf, aparat de radiologie nou îl respectă</li></ul></div>
+    <div class="card o"><h3>Fișierul DICOM</h3><ul>
+      <li>Antet cu „etichete”: nume pacient, ID, dată naștere, examinare, aparat, parametri de expunere</li>
+      <li>Datele imaginii (pixeli) în același fișier</li>
+      <li>Un examen = mai multe serii = mai multe imagini, toate cu identificatori unici (UID)</li></ul></div>
+    <div class="card d"><h3>Serviciile de rețea</h3><ul>
+      <li><b>C-ECHO</b> – test de conectivitate („ping” DICOM)</li>
+      <li><b>C-STORE</b> – trimiterea imaginilor către arhivă</li>
+      <li><b>C-FIND / C-MOVE</b> – căutare și preluare din arhivă</li>
+      <li><b>Modality Worklist</b> – lista de pacienți programați, luată din sistemul de radiologie</li>
+      <li>Fiecare aparat are: <b>adresă IP, port</b> (uzual 104 sau 11112) <b>și AE Title</b></li></ul></div>
+  </div>
+  <p>Documentul <i>DICOM Conformance Statement</i> al fiecărui aparat spune exact ce servicii acceptă. Tehnicianul îl cere producătorului înainte de integrare.</p>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>9</span></div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <h2>Rețeaua informatică a spitalului</h2>
+  <div class="diag" style="height:500px">
+    <div class="box g" style="left:0;top:30px;width:380px"><h3>HIS – sistem informatic al spitalului</h3><p>internare, foaie de observație, facturare</p></div>
+    <div class="box g" style="left:0;top:320px;width:380px"><h3>RIS – sistem informatic de radiologie</h3><p>programări, protocoale, rapoarte</p></div>
+    <div class="box" style="left:640px;top:30px;width:380px"><h3>PACS – arhiva de imagini</h3><p>server + stocare, ani de zile</p></div>
+    <div class="box" style="left:640px;top:320px;width:380px"><h3>Stații de diagnostic</h3><p>monitoare medicale calibrate, vizualizator</p></div>
+    <div class="box o" style="left:1284px;top:30px;width:380px"><h3>Aparate (modalități)</h3><p>CT, RMN, ecograf, radiologie</p></div>
+    <div class="box o" style="left:1284px;top:320px;width:380px"><h3>Monitoare de pacient</h3><p>stație centrală, telemetrie</p></div>
+    <div class="arr both" style="left:382px;top:108px;width:256px"></div>
+    <div class="arr both" style="left:382px;top:398px;width:256px"></div>
+    <div class="arr o rev" style="left:1022px;top:108px;width:260px"></div>
+    <div class="arr o rev" style="left:1022px;top:398px;width:260px"></div>
+    <div class="arr v both" style="left:188px;top:170px;height:148px"></div>
+    <div class="arr v both" style="left:828px;top:170px;height:148px"></div>
+    <div class="lbl" style="left:400px;top:60px;width:220px">HL7 (comenzi, rezultate)</div>
+    <div class="lbl" style="left:1030px;top:60px;width:250px">DICOM C-STORE / Worklist</div>
+    <div class="lbl" style="left:1030px;top:350px;width:250px">HL7 / protocol propriu</div>
+  </div>
+  <p style="font-size:25px"><b>HL7</b> (versiunea 2 – mesaje text; <b>FHIR</b> – servicii web moderne) transportă datele administrative și rezultatele; <b>DICOM</b> transportă imaginile. Ambele trec prin rețeaua Ethernet obișnuită, dar într-un <b>segment (VLAN) separat</b>, dedicat aparaturii medicale.</p>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>10</span></div>
+</section>
+
+<!-- 11 -->
+<section class="slide">
+  <h2>Monitorizarea computerizată a pacientului și telemedicina</h2>
+  <div class="row">
+    <div class="card"><h3>Monitorul multiparametru</h3><ul>
+      <li>Module: ECG, SpO₂, presiune neinvazivă și invazivă, temperatură, respirație, capnografie</li>
+      <li>Procesor pentru fiecare modul + procesor central pentru afișare și alarme</li>
+      <li>Stație centrală: 8–32 paturi pe un ecran, în secția de terapie intensivă</li></ul></div>
+    <div class="card o"><h3>Telemetrie și aparate purtabile</h3><ul>
+      <li>Emițător ECG portabil pe pacient, recepție prin antene Wi-Fi medicale sau bandă dedicată</li>
+      <li>Holter ECG / tensiune arterială: înregistrare 24–72 h, analiză ulterioară pe calculator</li>
+      <li>Ceasurile de consum nu sunt dispozitive medicale certificate decât dacă poartă marcaj CE medical</li></ul></div>
+    <div class="card d"><h3>Telemedicina</h3><ul>
+      <li>Transmiterea la distanță a ECG, imaginilor, parametrilor vitali</li>
+      <li>Consultații video, monitorizare la domiciliu a bolnavilor cronici</li>
+      <li>Cerințe: legătură criptată, identificarea pacientului, <b>sincronizarea timpului (NTP)</b> pe toate aparatele</li></ul></div>
+  </div>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>11</span></div>
+</section>
+
+<!-- 12 -->
+<section class="slide">
+  <h2>Software-ul este dispozitiv medical: cerințe legale și standarde</h2>
+  <table style="font-size:23px">
+    <tr><th style="width:24%">Document</th><th style="width:40%">Ce reglementează</th><th>Ce înseamnă pentru tehnician</th></tr>
+    <tr><td><b>Regulamentul (UE) 2017/745</b> (MDR)</td><td>Clasificarea software-ului (regula 11): clasa I, IIa, IIb sau III după riscul deciziei pe care o sprijină</td><td>Doar software cu marcaj CE, în versiunea validată de producător; orice actualizare vine cu documente</td></tr>
+    <tr><td><b>SR EN 62304</b> (IEC 62304)</td><td>Procesele ciclului de viață al software-ului medical; clase de siguranță A (fără vătămare), B (vătămare ușoară), C (vătămare gravă / deces)</td><td>Tehnicianul instalează numai versiuni aprobate și consemnează instalarea</td></tr>
+    <tr><td><b>SR EN ISO 14971</b></td><td>Managementul riscului pentru dispozitive medicale</td><td>Orice modificare de configurare se face după procedura producătorului</td></tr>
+    <tr><td><b>SR EN 62366-1</b></td><td>Ingineria aptitudinii de utilizare (interfața cu utilizatorul)</td><td>Meniurile, alarmele și mesajele nu se personalizează fără acordul producătorului</td></tr>
+    <tr><td><b>SR EN 60601-1</b> + 60601-1-2</td><td>Securitatea electrică și compatibilitatea electromagnetică</td><td>Un calculator obișnuit conectat la aparat intră în „sistemul electromedical” și trebuie izolat (transformator de separare sau izolator de rețea)</td></tr>
+  </table>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>12</span></div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <h2>Securitatea cibernetică și protecția datelor pacientului</h2>
+  <div class="row">
+    <div class="card"><h3>Ce spune legea</h3><ul>
+      <li><b>GDPR</b> (Reg. (UE) 2016/679), art. 9: datele privind sănătatea sunt categorie specială – acces numai pe bază de necesitate</li>
+      <li><b>NIS2</b> (Directiva (UE) 2022/2555), transpusă prin <b>OUG 155/2024</b>: spitalele sunt entități esențiale, cu obligații de management al riscului și de raportare a incidentelor</li>
+      <li><b>MDR</b> anexa I: producătorul livrează dispozitivul cu măsuri de securitate informatică</li></ul></div>
+    <div class="card o"><h3>Ce face tehnicianul</h3><ul>
+      <li>Schimbă parolele implicite ale aparatului și ale interfeței de service</li>
+      <li>Aparatele stau într-un segment de rețea separat (VLAN), cu reguli de filtrare</li>
+      <li>Actualizările de sistem de operare numai cu aprobarea producătorului</li>
+      <li>Porturile USB nefolosite se dezactivează; stick-urile de service se verifică antivirus</li>
+      <li>Cere producătorului formularul <b>MDS2</b></li></ul></div>
+    <div class="card d"><h3>Semne de alarmă</h3><ul>
+      <li>Aparat cu Windows XP / 7 conectat direct la rețeaua administrativă</li>
+      <li>Acces la distanță al furnizorului permanent deschis, fără jurnalizare</li>
+      <li>Imagini cu date de pacient copiate pe suporturi nesecurizate</li>
+      <li>Cont comun „admin / admin” pentru toată secția</li></ul></div>
+  </div>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>13</span></div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <h2>Rolul tehnicianului la un aparat computerizat</h2>
+  <div class="row">
+    <div class="card"><h3>La punerea în funcțiune</h3><ul>
+      <li>Verificarea securității electrice (IEC 62353) înainte de conectarea la rețea</li>
+      <li>Configurarea rețelei: adresă IP, mască, poartă implicită, DNS, NTP</li>
+      <li>Configurarea DICOM: AE Title propriu, AE Title / IP / port ale PACS și Worklist</li>
+      <li>Test C-ECHO, apoi trimiterea unei imagini de probă (fantom)</li>
+      <li><b>Proces-verbal de punere în funcțiune</b> cu toți parametrii notați</li></ul></div>
+    <div class="card o"><h3>În exploatare</h3><ul>
+      <li>Citirea jurnalelor de erori ale aparatului – prima sursă de diagnostic</li>
+      <li>Copii de siguranță ale configurației și datelor înainte de orice intervenție</li>
+      <li>Actualizări software numai din pachetele producătorului, consemnate în fișa aparatului</li>
+      <li>Calibrări și verificări periodice cu simulator / fantom, cu rezultate arhivate</li></ul></div>
+    <div class="card d"><h3>Ce NU face</h3><ul>
+      <li>Nu instalează programe străine pe calculatorul aparatului</li>
+      <li>Nu modifică filtre, algoritmi sau limite de alarmă implicite fără documentație</li>
+      <li>Nu scoate din aparat suporturi de date cu informații de pacient neșterse</li>
+      <li>Nu „repară” software-ul prin reinstalare de pe internet</li></ul></div>
+  </div>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>14</span></div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <h2>Cu ce lucrăm la laborator și la instruirea practică</h2>
+  <table style="font-size:23px">
+    <tr><th style="width:30%">Instrument</th><th style="width:38%">La ce folosește</th><th>Observații</th></tr>
+    <tr><td>Simulator de pacient / simulator ECG</td><td>Semnal cunoscut la intrarea aparatului: verificăm ce afișează și ce calculează</td><td>Se poate folosi și un generator de semnal cu formă de undă ECG</td></tr>
+    <tr><td>Osciloscop + placă de achiziție (NI myDAQ, Arduino cu modul AD8232)</td><td>Vedem semnalul analogic, îl eșantionăm și îl comparăm cu cel numeric</td><td><b>Numai cu semnale simulate</b>, nu pe persoane, fără izolare galvanică certificată</td></tr>
+    <tr><td>Foaie de calcul / Python (numpy, scipy, matplotlib)</td><td>Filtrare, detecție QRS, calcul de frecvență cardiacă pe date reale</td><td>Date publice: baza MIT-BIH de pe PhysioNet</td></tr>
+    <tr><td>Vizualizator DICOM gratuit (Weasis, MicroDicom, 3D Slicer)</td><td>Deschidem imagini, citim antetul, schimbăm fereastra/nivelul</td><td>Imagini demonstrative anonimizate, disponibile public</td></tr>
+    <tr><td>Server PACS de laborator (Orthanc, gratuit)</td><td>Simulăm rețeaua spitalului: aparat → PACS → stație</td><td>Rulează pe un calculator obișnuit sau pe un Raspberry Pi</td></tr>
+    <tr><td>Documentația aparatului: manual de service, DICOM Conformance Statement, MDS2</td><td>Exersăm citirea documentelor pe care le vom cere în practică</td><td>Multe sunt publicate pe paginile producătorilor</td></tr>
+  </table>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>15</span></div>
+</section>
+
+<!-- 16 -->
+<section class="slide">
+  <h2>Cele 6 teme de lucru</h2>
+  <div class="grid3">
+    <div class="card"><h3>1 · Lanțul de achiziție al unui electrocardiograf</h3><ul><li>Schema bloc, alegerea fs și a numărului de biți</li><li>Măsurători pe simulator ECG</li><li>Livrabil: fișă tehnică + calcule</li></ul></div>
+    <div class="card o"><h3>2 · Prelucrarea numerică a unui semnal ECG</h3><ul><li>Date reale din baza MIT-BIH</li><li>Filtrare, detecție QRS, frecvență cardiacă</li><li>Livrabil: grafice + raport</li></ul></div>
+    <div class="card d"><h3>3 · Imaginea medicală digitală (DICOM)</h3><ul><li>Deschiderea și citirea antetului</li><li>Fereastră / nivel, calcul de volum de date</li><li>Livrabil: capturi comentate</li></ul></div>
+    <div class="card d"><h3>4 · Integrarea unui aparat în rețea (PACS)</h3><ul><li>Configurare IP / AE Title / port</li><li>Test C-ECHO, transfer, Worklist</li><li>Livrabil: proces-verbal de PIF</li></ul></div>
+    <div class="card"><h3>5 · Software-ul ca dispozitiv medical</h3><ul><li>Clasificare MDR regula 11 și IEC 62304</li><li>Analiză de risc simplificată ISO 14971</li><li>Livrabil: dosar de caz</li></ul></div>
+    <div class="card o"><h3>6 · Audit de securitate cibernetică</h3><ul><li>Chestionar MDS2 simplificat</li><li>Plan de măsuri, cerințe GDPR</li><li>Livrabil: raport de audit + prezentare</li></ul></div>
+  </div>
+  <p>Fișele complete ale temelor și bibliografia: <b>teme.html</b></p>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>16</span></div>
+</section>
+
+<!-- 17 -->
+<section class="slide">
+  <h2>Bibliografie (1) – lucrări în limba română</h2>
+  <ul style="font-size:25px">
+    <li>Costin, H. – <i>Electronică medicală</i>, Editura Cantes, Iași, 2000</li>
+    <li>Corciovă, C.; Ciorap, R. – <i>Instrumentație biomedicală</i>, Editura „Gr. T. Popa”, UMF Iași, 2014</li>
+    <li>Ciorap, R. – <i>Introducere în electronica biomedicală</i>, Editura PIM, Iași, 2007</li>
+    <li>Zaharia, D.; Ciorap, R. – <i>Monitorizarea parametrilor vitali în afecțiunile cronice</i>, Editura „Gr. T. Popa”, Iași, 2009</li>
+    <li>Focșa, M. A. – <i>Informatica medicală în era digitală – de la date la Inteligența Artificială</i>, Editura „Victor Babeș”, Timișoara, 2025, ISBN 978-606-786-518-9 (carte electronică gratuită, umft.ro)</li>
+    <li>Vertan, C.; Ciuc, M. – <i>Tehnici fundamentale de prelucrarea și analiza imaginilor</i>, MatrixROM, București, 2007, ISBN 978-973-755-207-5</li>
+    <li>Negoescu, R. – <i>Instrumentația electronică biomedicală. Inițiere</i>, Editura Tehnică, București, 1985</li>
+    <li>Strungaru, R. – <i>Electronica medicală</i>, Editura Didactică și Pedagogică, București, 1982</li>
+    <li>Topoliceanu, F.; Lozneanu, S. – <i>Bioelectrometrie</i>, Editura Tehnică, București, 1985</li>
+    <li>Tărâță, M. ș.a. – <i>Informatică medicală și biostatistică</i>, UMF Craiova, 2020 (suport de curs)</li>
+    <li>*** Curriculum școlar pentru învățământ postliceal, nivel 3 avansat, calificarea Tehnician aparate electromedicale – planul de învățământ, modulul 16</li>
+  </ul>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>17</span></div>
+</section>
+
+<!-- 18 -->
+<section class="slide">
+  <h2>Bibliografie (2) – standarde, legislație, resurse în engleză</h2>
+  <div class="row">
+    <ul style="flex:1;font-size:23px">
+      <li>Regulamentul (UE) 2017/745 privind dispozitivele medicale (MDR) – EUR-Lex, versiunea în limba română</li>
+      <li>OUG nr. 46/2021 privind punerea în aplicare a Regulamentului (UE) 2017/745 în România</li>
+      <li>Regulamentul (UE) 2016/679 (GDPR), art. 9 – date privind sănătatea</li>
+      <li>Directiva (UE) 2022/2555 (NIS2); OUG nr. 155/2024 privind securitatea cibernetică a rețelelor și sistemelor informatice</li>
+      <li>SR EN 60601-1 – Aparate electromedicale. Cerințe generale de securitate de bază și performanțe esențiale</li>
+      <li>SR EN 62304 – Software pentru dispozitive medicale. Procese ale ciclului de viață</li>
+      <li>SR EN ISO 14971 – Aplicarea managementului riscului la dispozitive medicale</li>
+      <li>SR EN ISO 13485 – Sisteme de management al calității pentru dispozitive medicale</li>
+      <li>SR EN ISO 12052 – Informatică medicală. DICOM</li>
+      <li>IEC 62353 – Încercări periodice și după reparare</li>
+    </ul>
+    <ul style="flex:1;font-size:23px">
+      <li>Webster, J. G. (ed.) – <i>Medical Instrumentation: Application and Design</i>, ed. a 5-a, Wiley, 2020</li>
+      <li>Pianykh, O. S. – <i>Digital Imaging and Communications in Medicine (DICOM): A Practical Introduction and Survival Guide</i>, ed. a 2-a, Springer, 2012</li>
+      <li>Bushberg, J. T. ș.a. – <i>The Essential Physics of Medical Imaging</i>, ed. a 4-a, Wolters Kluwer, 2020</li>
+      <li>NEMA – <i>DICOM Standard</i>, dicomstandard.org (text integral gratuit)</li>
+      <li>HL7 International – <i>HL7 FHIR</i>, hl7.org/fhir</li>
+      <li>PhysioNet – MIT-BIH Arrhythmia Database, physionet.org</li>
+      <li>Orthanc – server DICOM cu sursă deschisă, orthanc-server.com; Weasis – vizualizator DICOM, weasis.org</li>
+      <li>NEMA / HIMSS – formularul MDS2 (Manufacturer Disclosure Statement for Medical Device Security)</li>
+    </ul>
+  </div>
+  <div class="footer"><span>Tehnici computerizate în aparatele electromedicale</span><span>18</span></div>
+</section>
+
+<!-- 19 -->
+<section class="slide dark2" style="justify-content:center">
+  <h1 style="font-size:88px">Aparatul medical modern este un calculator cu senzori. Tehnicianul bun îl înțelege pe amândouă.</h1>
+  <p style="font-size:34px">Săptămâna viitoare: tema 1 – lanțul de achiziție al electrocardiografului. Aduceți calculatorul portabil și caietul de laborator.</p>
+  <div class="footer"><span>Prof. Sergiu Podoreanu · Liceul Tehnologic „Grigore C. Moisil” Buzău</span><span>19</span></div>
+</section>
+
+</div>
+<div id="hud"><span id="ctr"></span> · ← → / spațiu · <b>F</b> ecran complet · <b>P</b> tipărire · <a href="teme.html">teme.html</a></div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide')),i=0,ctr=document.getElementById('ctr');
+  function fit(){var s=Math.min(innerWidth/1920,innerHeight/1080);slides.forEach(function(el){el.style.transform='scale('+s+')'});}
+  function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach(function(el,k){el.classList.toggle('active',k===i)});ctr.textContent=(i+1)+' / '+slides.length;location.hash='#'+(i+1);}
+  addEventListener('resize',fit);
+  addEventListener('keydown',function(e){
+    if(['ArrowRight','ArrowDown',' ','PageDown'].indexOf(e.key)>=0){show(i+1);e.preventDefault();}
+    else if(['ArrowLeft','ArrowUp','PageUp'].indexOf(e.key)>=0){show(i-1);e.preventDefault();}
+    else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);
+    else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+    else if(e.key==='p'||e.key==='P')print();
+  });
+  document.getElementById('stage').addEventListener('click',function(e){if(e.clientX>innerWidth/2)show(i+1);else show(i-1);});
+  var t0=null;addEventListener('touchstart',function(e){t0=e.touches[0].clientX});
+  addEventListener('touchend',function(e){if(t0===null)return;var d=e.changedTouches[0].clientX-t0;if(Math.abs(d)>50)show(d<0?i+1:i-1);t0=null;});
+  fit();show(parseInt(location.hash.slice(1))-1||0);
+})();
+</script>
+</body>
+</html>
